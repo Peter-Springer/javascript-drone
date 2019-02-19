@@ -28,13 +28,13 @@ function handleError(err) {
 //send battery command, offset, length of command, port, host, callback
 // drone.send('battery?', 0, 8, PORT, HOST, handleError)
 
-const commands = ['command', 'battery?', 'takeoff', 'land']
+const commands = ['command', 'battery?', 'takeoff', 'forward 120', 'back 120', 'land']
 
 let i = 0
 
 async function fly() {
   const command = commands[i]
-  const delay = commandDelays[command]
+  const delay = commandDelays[command.split(' ')[0]]
   console.log(`running command: ${command}`)
   drone.send(command, 0, command.length, PORT, HOST, handleError)
   await wait(delay)
